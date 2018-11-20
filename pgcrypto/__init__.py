@@ -1,3 +1,5 @@
+from __future__ import unicode_literals
+
 DIGEST_SQL = "digest(%s, 'sha512')"
 HMAC_SQL = "hmac(%s, '{}', 'sha512')"
 

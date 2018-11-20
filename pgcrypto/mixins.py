@@ -34,7 +34,7 @@ class DecryptedCol(Col):
         return sql, params
 
 
-class HashMixin:
+class HashMixin(object):
     """Keyed hash mixin.
 
     `HashMixin` uses 'pgcrypto' to encrypt data in a postgres database.
@@ -74,7 +74,7 @@ class HashMixin:
         return self.encrypt_sql
 
 
-class PGPMixin:
+class PGPMixin(object):
     """PGP encryption for field's value.
 
     `PGPMixin` uses 'pgcrypto' to encrypt data in a postgres database.
@@ -85,7 +85,7 @@ class PGPMixin:
 
     def __init__(self, *args, **kwargs):
         """`max_length` should be set to None as encrypted text size is variable."""
-        super().__init__(*args, **kwargs)
+        super(PGPMixin, self).__init__(*args, **kwargs)
 
     def db_type(self, connection=None):
         """Value stored in the database is hexadecimal."""
@@ -155,7 +155,7 @@ class PGPSymmetricKeyFieldMixin(PGPMixin):
         return self.decrypt_sql.format(get_setting(connection, 'PGCRYPTO_KEY'))
 
 
-class DecimalPGPFieldMixin:
+class DecimalPGPFieldMixin(object):
     """Decimal PGP encrypted field mixin for postgres."""
     cast_type = 'NUMERIC(%(max_digits)s, %(decimal_places)s)'
 
